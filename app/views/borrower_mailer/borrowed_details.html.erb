@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Book <%= @borrower.book.title %> is with you!</p>
+    <p>
+    --------------------------
+    </p>
+    The last date to return the book is <%= @borrower.return_date%>
+    <p>
+    Message:<br>
+    ----------
+    </p>
+  </body>
+</html>

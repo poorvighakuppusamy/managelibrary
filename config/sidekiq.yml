@@ -1,0 +1,27 @@
+defaults: &defaults
+  :verbose: true
+  :concurrency: 2
+  :timeout: 30
+  :queues:
+    - [ 'high_priority', 1 ]
+    - [ 'mailers', 2 ]
+    - [ 'active_storage_analysis', 4 ]
+    - [ 'default', 5 ]
+    - [ 'active_storage_purge', 5]
+    - [ 'algoliasearch', 9 ]
+    - [ 'low_priority', 10 ]
+
+development:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+heroku:
+  <<: *defaults
+
+test:
+  <<: *defaults
