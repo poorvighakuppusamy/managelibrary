@@ -3,15 +3,11 @@
 one:
   name: MyString
   email: MyString
+  password: MyString
   phone: MyString
-  borrowed_date: 2022-03-16
-  return_date: 2022-03-16
-  book_id: 1
 
 two:
   name: MyString
   email: MyString
+  password: MyString
   phone: MyString
-  borrowed_date: 2022-03-16
-  return_date: 2022-03-16
-  book_id: 1

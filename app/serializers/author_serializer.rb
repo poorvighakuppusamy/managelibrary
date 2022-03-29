@@ -1,4 +1,4 @@
 class AuthorSerializer < ActiveModel::Serializer
-  attributes :id, :name, :Description
+  attributes :id, :name, :description
   has_many :books
 end

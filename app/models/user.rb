@@ -1,3 +1,12 @@
 class User < ApplicationRecord
-	has_many :books
+  belongs_to :role
+
+  def is_user?
+    role.name == 'User'
+  end
+
+  def is_admin?
+    role.name == 'Admin'
+  end
+
 end

@@ -1,24 +1,27 @@
 class BooksController < ApplicationController
 	skip_before_action :verify_authenticity_token
-	skip_before_action :authenticate_user, only: %i[show] 
+	skip_before_action :authenticate_user, only: %i[show index show]
+
 	def show
-		@book = Book.all
+		@book = Book.find(params[:id])
 		render json:@book
 	end
 
-	def show_book
-		@author = Book.find_by(id: params[:id])
-		render json:@book
-	end
+	def index
+		@book = Book.all
+		render json:@book, include: [:author]
+   end
 
 	def create
-		user_parameters = user_params
-		@book = Book.create(user_parameters)
-		render json:@book
+		@book = Book.create(book_params)
+		authorize @book
+		render json: @book
 	end
 
 	private
-	def user_params
-		params.permit(:title, :description, :author_id)
+
+	def book_params
+		# params.permit(:title, :description, :author_id)
+		params.require(:data).require(:attributes).permit(:title, :description, :author_id)
 	end
 end

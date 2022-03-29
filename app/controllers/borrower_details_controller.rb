@@ -1,9 +1,14 @@
-class BorrowersController < ApplicationController
+class BorrowerDetailsController < ApplicationController
 	skip_before_action :verify_authenticity_token 
-	skip_before_action :authenticate_user, only: %i[show]
-	def show
+	skip_before_action :authenticate_user, only: %i[create update]
+	def index
 		@borrower_details = BorrowerDetail.all
 		render json:@borrower_details
+	end
+
+	def show
+		@borrower = BorrowerDetail.find(params[:id])
+		render json:@borrower
 	end
 
 	def create
@@ -15,18 +20,16 @@ class BorrowersController < ApplicationController
 		render json:@borrower_details
 	end
 
-	def return_book
-		@user = User.find_by(email: params[:email])
-		user_id = @user.id
-		@book = Book.find_by(title: params[:title])
-		book_id = @book.id
-		borrower = BorrowerDetail.find_by(user_id: user_id,book_id: book_id)
-		borrwer.update(status: "Returned")
-		render json:{message: "Book returned"}
+	def update
+		@borrower = BorrowerDetail.find(params[:id])
+		authorize @borrower
+		@borrower.update(status: "Returned")
+		render json:@borrower
 	end
 
 	private
 	def user_params
+		# params.require(:data).require(:attributes).permit(:book_id, :user_id, :status)
 		params.permit(:book_id, :user_id, :status)
 	end
 end
