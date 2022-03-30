@@ -20,17 +20,16 @@ class UsersController < ApplicationController
 	end
 
   def sign_in
-		@user = User.find_by(email: params[:email])
+		@user = User.find_by(email: params[:username])
 		password = encrypt(params[:password])
 		if @user && password == @user.password
-			session[:user] = params[:email]
-			render json: @user
-			# respond_to do |format|
-		 #    format.json { render json: @user }
-		 #    format.html { redirect_to "http://localhost:4200/home" }
-		 #  end
+			session[:user] = params[:username]
+			render json: {
+  				access_token: params[:username],
+				  token_type: 'bearer'
+      }
 		else
-			render json: {error: "Authentication Failed"}
+			render status: 401, json: {error: 'invalid_grant'}
 		end
 	end
 
@@ -40,12 +39,10 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		authorize current_user
 		@user = User.find(params[:id])
 		render json:@user
 	end
 	def index
-		authorize current_user
 		@user = User.all
 		render json:@user
 	end

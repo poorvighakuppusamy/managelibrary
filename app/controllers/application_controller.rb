@@ -9,21 +9,20 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    render json: {error: 'User not authorized'}
+    # render json: {error: 'User not authorized'}
+    render status: 401, json: {error: 'User not authorized'}
   end
 
 
   def authenticate_user
-    unless session[:user]
-      # respond_to do |format|
-      #   format.html { redirect_to "/users/sign_in" }
-      #   format.json { render json: {error: "Authentication Failed"} }
-      # end
+    # unless session[:user]
+    if request.headers['Authenticate'].blank? || current_user.nil?
       render json: {error: "Authentication Failed"}
     end 
   end
 
   def current_user
-    @current_user ||= User.find_by_email(session[:user])
+    # @current_user ||= User.find_by_email(session[:user])
+    @current_user ||= User.find_by_email(request.headers['Authenticate'])
   end
 end
