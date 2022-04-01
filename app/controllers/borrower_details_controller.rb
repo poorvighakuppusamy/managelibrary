@@ -23,13 +23,14 @@ class BorrowerDetailsController < ApplicationController
 	def update
 		@borrower = BorrowerDetail.find(params[:id])
 		authorize @borrower
-		@borrower.update(status: "Returned")
+		user_parameters = user_params
+		@borrower.update(user_parameters)
 		render json:@borrower
 	end
 
 	private
 	def user_params
-		# params.require(:data).require(:attributes).permit(:book_id, :user_id, :status)
-		params.permit(:book_id, :user_id, :status)
+		params.require(:data).require(:attributes).permit(:book_id, :user_id, :status)
+		# params.permit(:book_id, :user_id, :status)
 	end
 end

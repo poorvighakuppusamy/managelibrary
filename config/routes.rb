@@ -1,8 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :books, only:%i[create show index] 
-  resources :authors, only:%i[create show index] 
+  resources :books, only:%i[create show index update] 
+  resources :authors, only:%i[create show update index] 
   resources :users, only:%i[index show]  do 
     collection do
       post :sign_up

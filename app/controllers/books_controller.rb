@@ -19,10 +19,18 @@ class BooksController < ApplicationController
 		render json: @book
 	end
 
+	def update
+		@book = Book.find(params[:id])
+		authorize @book
+		book_parameters = book_params
+		@book.update(book_parameters)
+		render json:@book
+	end
+
 	private
 
 	def book_params
-		params.permit(:title, :description, :author_id)
-		# params.require(:data).require(:attributes).permit(:title, :description, :author_id)
+		# params.permit(:title, :description, :author_id)
+		params.require(:data).require(:attributes).permit(:title, :description, :author_id)
 	end
 end
