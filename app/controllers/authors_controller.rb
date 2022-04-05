@@ -15,7 +15,7 @@ class AuthorsController < ApplicationController
 	end
 
 	def index
-		@author = Author.all
+		@author = Author.includes(:books).all
 		render json:@author
     end
 

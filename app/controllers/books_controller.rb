@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 	end
 
 	def index
-		@book = Book.all
+		@book = Book.includes(:author).all
 		render json:@book, include: [:author]
    end
 

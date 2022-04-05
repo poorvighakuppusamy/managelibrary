@@ -2,7 +2,7 @@ class BorrowerDetailsController < ApplicationController
 	skip_before_action :verify_authenticity_token 
 	skip_before_action :authenticate_user, only: %i[create update]
 	def index
-		@borrower_details = BorrowerDetail.all
+		@borrower_details = BorrowerDetail.includes(:user,:book).all
 		render json:@borrower_details
 	end
 
