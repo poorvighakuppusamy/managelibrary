@@ -8,8 +8,11 @@ class BooksController < ApplicationController
 	end
 
 	def index
-		@book = Book.includes(:author).page(params[:page])
-		# @book = Book.includes(:author).all
+		if params[:page]
+			@book = Book.includes(:author).page(params[:page])
+		else
+			@book = Book.includes(:author).all
+		end
 		render json:@book, include: [:author]
    end
 
@@ -25,6 +28,11 @@ class BooksController < ApplicationController
 		authorize @book
 		book_parameters = book_params
 		@book.update(book_parameters)
+		render json:@book
+	end
+
+	def destroy
+		@book = Book.find(params[:id]).destroy;
 		render json:@book
 	end
 

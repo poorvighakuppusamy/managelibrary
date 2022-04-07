@@ -35,18 +35,27 @@ class UsersController < ApplicationController
   	render json: {message: "Successfully Logged Out"}
 	end
 
+	def destroy
+		@user = User.find(params[:id]).destroy;
+		render json:@user
+	end
+
 	def show
 		@user = User.find(params[:id])
 		render json:@user
 	end
 	def index
-		@user = User.all
+		if params[:page]
+			@user = User.page(params[:page])
+		else
+			@user = User.all
+		end
 		render json:@user
 	end
 
 	private
 	def user_params
 		params.require(:data).require(:attributes).permit(:name, :email, :phone, :password)
-		# params.permit(:name, :email, :password, :phone, :role_id)
+		# params.permit(:name, :email, :password, :phone)
 	end
 end

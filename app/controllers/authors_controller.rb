@@ -14,11 +14,19 @@ class AuthorsController < ApplicationController
 		render json:@author
 	end
 
-	def index
-		@author = Author.includes(:books).page(params[:page])
-		# @author = Author.includes(:books).all
+	def destroy
+		@author = Author.find(params[:id]).destroy;
 		render json:@author
-    end
+	end
+
+	def index
+		if params[:page]
+			@author = Author.includes(:books).page(params[:page])
+		else
+			@author = Author.includes(:books).all
+		end
+		render json:@author
+  end
 
   def update
 		@author = Author.find(params[:id])
