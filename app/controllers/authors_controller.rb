@@ -25,7 +25,7 @@ class AuthorsController < ApplicationController
 		else
 			@author = Author.includes(:books).all
 		end
-		render json:@author
+		render json:@author 
   end
 
   def update
@@ -39,6 +39,5 @@ class AuthorsController < ApplicationController
 	private
 	def user_params
 		params.require(:data).require(:attributes).permit(:name, :description)
-		# params.permit(:name, :description)
 	end
 end
