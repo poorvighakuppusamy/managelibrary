@@ -32,8 +32,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'mysql2', '0.5.0'
 
 gem 'active_model_serializers'
-
+gem 'rack-cors'
 gem 'sidekiq'
+gem 'pundit'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
