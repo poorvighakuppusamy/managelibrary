@@ -13,7 +13,7 @@ class BooksController < ApplicationController
 		else
 			@book = Book.includes(:author).all
 		end
-		render json:@book, include: [:author]
+		render json:@book, meta: {total_records: @book.total_count, current_page: @book.current_page, total_pages: @book.total_pages}, include: [:author]
    end
 
 	def create

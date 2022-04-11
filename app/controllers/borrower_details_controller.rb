@@ -3,7 +3,7 @@ class BorrowerDetailsController < ApplicationController
 	skip_before_action :authenticate_user, only: %i[create update]
 	def index
 		@borrower_details = BorrowerDetail.includes(:user,:book).page(params[:page])
-		render json:@borrower_details
+		render json:@borrower_details, meta: {total_records: @borrower_details.total_count, current_page: @borrower_details.current_page, total_pages: @borrower_details.total_pages}
 	end
 
 	def show

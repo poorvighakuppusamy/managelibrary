@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 		else
 			@user = User.all
 		end
-		render json:@user
+		render json:@user, meta: {total_records: @user.total_count, current_page: @user.current_page, total_pages: @user.total_pages}
 	end
 
 	private

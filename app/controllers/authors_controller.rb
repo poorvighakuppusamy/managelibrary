@@ -25,7 +25,7 @@ class AuthorsController < ApplicationController
 		else
 			@author = Author.includes(:books).all
 		end
-		render json:@author
+		render json:@author, meta: {total_records: @author.total_count, current_page: @author.current_page, total_pages: @author.total_pages}
   end
 
   def update
